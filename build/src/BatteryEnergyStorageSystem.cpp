@@ -7,7 +7,7 @@
 // Constructor
 BatteryEnergyStorageSystem::BatteryEnergyStorageSystem (
 	tsu::config_map& map) : 
-	bms_(map["BMS"]),
+	//bms_(map["BMS"]),
 	inverter_(map["Radian"]),
 	last_control_(0),
 	last_log_(0) {
@@ -51,6 +51,18 @@ void BatteryEnergyStorageSystem::Loop (float delta_time){
 	if (five_seconds && utc != last_control_) {
 		last_control_ = utc;
 		BatteryEnergyStorageSystem::Query ();
+		point ["CC_Batt_Voltage"]
+		point ["CC_Array_Voltage"]
+		point["CC_Batt_Current"]
+		point["CC_Array_Current"]
+		point["CC_Charger_State"]
+		point["CCconfig_Rebulk_Volts"]="50.4"
+		point["Ccconfig_Float_Volts"]="54.4"	
+		point["Ccconfig_EQ_Volts"]="100"
+		point["Ccconfig_Absorb_End_Amps"]="0"
+		point["Ccconfig_Sweep_Max_Percentage"]="99"
+		point["Ccconfig_AUX_Low_Batt_Reconnect"]="65"
+			
 		if (GetImportWatts () > 0) {
 			BatteryEnergyStorageSystem::ImportPower ();
 		} else if (GetExportWatts () > 0) {
